@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>NLP AI Demo</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/./css/index.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center mb-5">Customer service AI demo</h1>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <div class="chatbot">
+            <div id="chatflow" class="chatflow"></div>
+            <div class="card chatbox">
+              <div class="card-body py-sm-3">
+                <form class="form-inline">
+                  <textarea
+                    class="form-control mr-2"
+                    name="chat-box"
+                    id="message"
+                    rows="2"
+                    cols="60"
+                  ></textarea>
+                  <button class="chat-button btn" id="send" type="button">
+                    <i class="fas fa-arrow-circle-right"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+  </body>
+  <script
+    src="https://kit.fontawesome.com/e47b435cbb.js"
+    crossorigin="anonymous"
+  ></script>
+
+  <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"
+  ></script>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"
+  ></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+    var socket = io.connect("http://localhost:3000");
+    const me = prompt("Hi what's your name");
+    addMessagesBot(`Hi ${me} what we can do for you`);
+
+    $("#send").click(function() {
+      sendMessage({ message: $("#message").val() });
+    });
+
+    socket.on("message", addMessagesBot);
+
+    function addMessagesBot(message) {
+      const time = new Date();
+      $("#chatflow").append(`
+              <div class="chat-bubble-bot mb-2">
+                <div class="chat-bubble-header mb-2">
+                  Bot
+                </div>
+                ${message}
+                <div class="chat-bubble-footer">
+                  ${time.toLocaleString("en-US", {
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true
+                  })}
+                </div>
+              </div>`);
+    }
+
+    function addMessagesUser(message) {
+      const time = new Date();
+      $("#chatflow").append(`
+              <div class="chat-bubble-user mb-2">
+                <div class="chat-bubble-header mb-2">
+                  ${me}
+                  </div>
+                ${message}
+                <div class="chat-bubble-footer">
+                  ${time.toLocaleString("en-US", {
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true
+                  })}
+                </div>
+              </div>`);
+    }
+
+    function sendMessage(message) {
+      $.post("http://localhost:3000/message", message).fail(response => {
+        console.log(response);
+      });
+      addMessagesUser(message.message);
+    }
+  </script>
+</html>

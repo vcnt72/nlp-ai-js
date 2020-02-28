@@ -1,0 +1,75 @@
+.chatflow {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-bottom: 0;
+  min-height: 645px;
+  max-height: 645px;
+  height: 100%;
+  border-radius: 0.1rem;
+  overflow-y: scroll;
+  background-image: url("../img/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
+  padding: 5px;
+}
+.chat-flow div {
+  position: absolute;
+}
+
+.chat-button {
+  background-color: transparent;
+}
+
+textarea {
+  resize: none;
+}
+
+.chat-button i {
+  font-size: 3em;
+  color: black;
+}
+
+.chat-bubble-bot {
+  background-color: #ffffff;
+  padding: 13px;
+  font-size: 15px;
+  border-radius: 5px;
+  width: 385px;
+}
+
+.chat-bubble-user {
+  background-color: #ffffff;
+  padding: 13px;
+  font-size: 15px;
+  border-radius: 5px;
+  width: 385px;
+  margin-left: auto;
+}
+
+.chat-bubble-header {
+  color: blue;
+  font-weight: bold;
+}
+
+.chat-bubble-footer {
+  margin-left: auto;
+  width: fit-content;
+  font-size: 12px;
+  color: #555;
+  font-weight: bold;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
