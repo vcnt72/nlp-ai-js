@@ -11,7 +11,7 @@
     "lokijs": "^1.5.8",
     "natural": "^0.6.3",
     "node-nlp": "^4.0.0-rc.19",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.4.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
